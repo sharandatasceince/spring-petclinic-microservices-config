@@ -58,7 +58,12 @@ management:
     export:
       prometheus:
         enabled: true
-
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-server:8761/eureka/
+  instance:
+    preferIpAddress: true
 # Chaos Engineering
 ---
 spring:
