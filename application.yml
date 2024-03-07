@@ -26,6 +26,14 @@ spring:
       allow-override: true
       # Override configuration with any local property source
       override-none: true
+    azure:
+      keyvault:
+        secret:
+          property-source-enabled: true
+          property-sources:
+            - name: key-vault-property-source-1
+              endpoint: https://kv-petclinic-sp-eda4e1.vault.azure.net/
+              credential.managed-identity-enabled: true  
   jpa:
     open-in-view: false
     hibernate:
