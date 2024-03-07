@@ -5,18 +5,19 @@ server:
   port: 0
   # The stop processing uses a timeout which provides a grace period during which existing requests will be allowed to complete but no new requests will be permitted
   shutdown: graceful
- 
+
 # embedded database init, supports mysql too trough the 'mysql' spring profile
 spring:
-  datasource:
-    url: jdbc:mysql://mysql-petclinic-sharanpail-eda4e1.mysql.database.azure.com:3306/petclinic?useSSL=true
-    username: myadmin
-    password: Password123
   sql:
     init:
       schema-locations: classpath*:db/mysql/schema.sql
       data-locations: classpath*:db/mysql/data.sql
       mode: ALWAYS
+  jms:
+    servicebus:
+      connection-string: ${spring.jms.servicebus.connectionstring}
+      idle-timeout: 60000
+      pricing-tier: basic
   sleuth:
     sampler:
       probability: 1.0
@@ -33,7 +34,7 @@ spring:
           property-sources:
             - name: key-vault-property-source-1
               endpoint: https://kv-petclinic-sp-eda4e1.vault.azure.net/
-              credential.managed-identity-enabled: true  
+              credential.managed-identity-enabled: true
   jpa:
     open-in-view: false
     hibernate:
